@@ -77,7 +77,17 @@ handle_left:
 	ret
 
 handle_right:
-	movl $2, %eax
+	mov $3, %eax
+	// edx = rdi->d - 1
+	mov 8(%rdi), %edx
+	dec %edx
+	// edx < 0 => rdi->d = 3
+	cmp $0, %edx
+	cmovl %eax, %edx
+	// rdi->d = edx
+	mov %edx, 8(%rdi)
+
+	mov $0, %eax
 	ret
 
 .data
