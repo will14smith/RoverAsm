@@ -20,9 +20,23 @@ handle_command:
 	ret
 
 handle_forward:
-	mov 4(%rdi), %ecx
-	add $1, %ecx
-	mov %ecx, 4(%rdi)
+	// ecx = _move + rdi->d * 2
+	mov 8(%rdi), %ecx
+	shl $1, %ecx
+	add $_move, %ecx
+
+	// eax = _move[ecx]
+	movsbl (%ecx), %eax
+	// rdi.x = rdi.x + eax
+	mov (%rdi), %edx
+	add %eax, %edx
+	mov %edx, (%rdi)
+        // eax = _move[ecx+1]
+        movsbl 1(%ecx), %eax
+        // rdi.y = rdi.y + eax
+        mov 4(%rdi), %edx
+        add %eax, %edx
+        mov %edx, 4(%rdi)
 
 	mov $0, %eax
 	ret
@@ -32,3 +46,11 @@ handle_left:
 handle_right:
 	movl $2, %eax
 	ret
+
+.data
+
+_move:
+_move_N: .byte 0, 1
+_move_E: .byte 1, 0
+_move_S: .byte 0, -1
+_move_W: .byte -1, 0

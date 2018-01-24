@@ -5,7 +5,8 @@
 #include "main.h"
 
 #define assertSuccess(X) assert((X) == RESULT_SUCCESS)
-#define assertRover(E, A) do { rover_t e = (E); rover_t a = (A); assert(e.x == a.x); assert(e.y == a.y); assert(e.d == a.d); } while(0)
+#define _assertR(X) do { if(!(X)) { printf("Expected: "); print_rover(e); printf("Actual: "); print_rover(a); assert(X); } } while(0);
+#define assertRover(E, A) do { rover_t e = (E); rover_t a = (A); _assertR(e.x == a.x); _assertR(e.y == a.y); _assertR(e.d == a.d); } while(0)
 
 void print_rover(rover_t rover) {
 	printf("(%i,%i) %i\n", rover.x, rover.y, rover.d);
