@@ -64,6 +64,18 @@ handle_backward:
         ret
 
 handle_left:
+	mov $0, %eax
+	// edx = rdi->d + 1
+	mov 8(%rdi), %edx
+	inc %edx
+	// edx >= 4 => rdi->d = 0
+	cmp $4, %edx
+	cmovge %eax, %edx
+	// rdi->d = edx
+	mov %edx, 8(%rdi)
+
+	ret
+
 handle_right:
 	movl $2, %eax
 	ret

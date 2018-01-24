@@ -70,6 +70,64 @@ void test_backward_W() {
         assertRover(expected, rover);
 }
 
+void test_left_N() {
+        rover_t rover = {0,0,DIR_NORTH};
+        rover_t expected = {0,0,DIR_EAST};
+
+        assertSuccess(handle_command(&rover, 'L'));
+        assertRover(expected, rover);
+}
+void test_left_E() {
+        rover_t rover = {0,0,DIR_EAST};
+        rover_t expected = {0,0,DIR_SOUTH};
+
+        assertSuccess(handle_command(&rover, 'L'));
+        assertRover(expected, rover);
+}
+void test_left_S() {
+        rover_t rover = {0,0,DIR_SOUTH};
+        rover_t expected = {0,0,DIR_WEST};
+
+        assertSuccess(handle_command(&rover, 'L'));
+        assertRover(expected, rover);
+}
+void test_left_W() {
+        rover_t rover = {0,0,DIR_WEST};
+        rover_t expected = {0,0,DIR_NORTH};
+
+        assertSuccess(handle_command(&rover, 'L'));
+        assertRover(expected, rover);
+}
+
+void test_right_N() {
+        rover_t rover = {0,0,DIR_NORTH};
+        rover_t expected = {0,0,DIR_WEST};
+
+        assertSuccess(handle_command(&rover, 'R'));
+        assertRover(expected, rover);
+}
+void test_right_E() {
+        rover_t rover = {0,0,DIR_EAST};
+        rover_t expected = {0,0,DIR_NORTH};
+
+        assertSuccess(handle_command(&rover, 'R'));
+        assertRover(expected, rover);
+}
+void test_right_S() {
+        rover_t rover = {0,0,DIR_SOUTH};
+        rover_t expected = {0,0,DIR_EAST};
+
+        assertSuccess(handle_command(&rover, 'R'));
+        assertRover(expected, rover);
+}
+void test_right_W() {
+        rover_t rover = {0,0,DIR_WEST};
+        rover_t expected = {0,0,DIR_SOUTH};
+
+        assertSuccess(handle_command(&rover, 'R'));
+        assertRover(expected, rover);
+}
+
 int main() {
 	test_forward_N();
 	test_forward_E();
@@ -80,6 +138,16 @@ int main() {
 	test_backward_E();
 	test_backward_S();
 	test_backward_W();
+
+	test_left_N();
+	test_left_E();
+	test_left_S();
+	test_left_W();
+
+	test_right_N();
+	test_right_E();
+	test_right_S();
+	test_right_W();
 
 	return 0;
 }
